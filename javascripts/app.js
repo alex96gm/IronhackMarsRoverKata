@@ -1,22 +1,29 @@
 // Rover Object Goes Here
 // ======================
-let rover={
-  direction:'N',
+let rover = {
+  direction: 'N',
   x: 0,
   y: 0,
-  travelog:[]
+  travelog: []
 };
 
-let comand = 'ffffffffffffffffffrfffffffffffff';
+//let comand = 'ffffffffffffffffffrfffffffffffff';
 
-(function start(){
-  insertComand(comand,rover);
+(function start() {
+  console.log("Ejemplo comando: ffrfflflbf")
+  var comand = prompt('Introduzca un comando: ', '');
+  if(validateComand(comand)){
+    console.log("Algún caracter del comando es erroneo");
+  }else{
+    insertComand(comand, rover);
+  }
+
   console.log(rover);
 })();
 
 // ======================
-function turnLeft(rover){
-  switch(rover.direction){
+function turnLeft(rover) {
+  switch (rover.direction) {
     case "N":
       rover.direction = 'W'
       break;
@@ -30,11 +37,11 @@ function turnLeft(rover){
       rover.direction = 'S'
       break;
   }
-  
+
 }
 
-function turnRight(rover){
-  switch(rover.direction){
+function turnRight(rover) {
+  switch (rover.direction) {
     case "N":
       rover.direction = 'E';
       break;
@@ -50,47 +57,80 @@ function turnRight(rover){
   }
 }
 
-function moveForward(rover){
-  switch(rover.direction){
+function moveForward(rover) {
+  switch (rover.direction) {
     case "N":
-      if(rover.y < 10){
-        rover.y += 1; 
-      }else{
+      if (rover.y < 10) {
+        rover.y += 1;
+      } else {
         console.log('Out of the grid');
       }
       break;
     case "S":
-      if(rover.y > -10){
+      if (rover.y > -10) {
         rover.y -= 1;
-      }else{
+      } else {
         console.log('Out of the grid');
       }
       break;
     case "E":
-      if(rover.x < 10){
-        rover.x += 1; 
-      }else{
+      if (rover.x < 10) {
+        rover.x += 1;
+      } else {
         console.log('Out of the grid');
       }
       break;
     case "W":
-      if(rover.x > -10){
-        rover.x -= 1; 
-      }else{
+      if (rover.x > -10) {
+        rover.x -= 1;
+      } else {
         console.log('Out of the grid');
-      } 
+      }
       break;
   }
-  rover.travelog.push([rover.x,rover.y]);
+  rover.travelog.push([rover.x, rover.y]);
+}
+function moveBackward (rover) {
+  switch (rover.direction) {
+    case "N":
+      if (rover.y > -10) {
+        rover.y -= 1;
+      } else {
+        console.log('Out of the grid');
+      }
+      break;
+    case "S":
+      if (rover.y < 10) {
+        rover.y += 1;
+      } else {
+        console.log('Out of the grid');
+      }
+      break;
+    case "E":
+      if (rover.x > -10) {
+        rover.x -= 1;
+      } else {
+        console.log('Out of the grid');
+      }
+      break;
+    case "W":
+      if (rover.x < 10) {
+        rover.x += 1;
+      } else {
+        console.log('Out of the grid');
+      }
+    break;
+  }
+  rover.travelog.push([rover.x, rover.y]);
 }
 
 
-function insertComand(comand,rover){
+function insertComand(comand, rover) {
   // tambien se puede hacer con spread operator 
-  // let comandos = [...comand]
-  let comandos = comand.split('');
-  comandos.forEach(element => {
-    switch(element){
+  // let comandSplit = [...comand]
+  let comandSplit = comand.toLowerCase().split('');
+  comandSplit.forEach(element => {
+    switch (element) {
       case "r":
         turnRight(rover);
         break;
@@ -99,8 +139,14 @@ function insertComand(comand,rover){
         break;
       case "f":
         moveForward(rover);
+      case "b":
+        moveBackward(rover);
         break;
     }
   });
 }
 
+function validateComand(comand) {
+  let comandSplit = comand.toLowerCase().split('');
+  return comandSplit.some(item => item !== 'r' && item !== 'l' && item !== 'f' && item !== 'b')
+}
