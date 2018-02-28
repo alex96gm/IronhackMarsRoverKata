@@ -7,21 +7,42 @@ let rover = {
   travelog: []
 };
 
-//let comand = 'ffffffffffffffffffrfffffffffffff';
+  //let comand = 'ffffffffffffffffffrfffffffffffff';
 
-(function start() {
-  console.log("Ejemplo comando: ffrfflflbf")
-  var comand = prompt('Introduzca un comando: ', '');
-  if(validateComand(comand)){
-    console.log("Algún caracter del comando es erroneo");
-  }else{
-    insertComand(comand, rover);
-  }
+  (function start() {
+    console.log("Ejemplo comando: ffrfflflbf")
+    var comand = prompt('Introduzca un comando: ', '');
+    if (comand === null) {
+      console.log("Se ha cancelado la introducción de comandos");
+    } else {
+      if (validateComand(comand)) {
+        console.log("Algún caracter del comando es erroneo");
+      } else {
+        insertComand(comand, rover);
+      }
+    }
 
-  console.log(rover);
-})();
+    console.log(rover);
+  })();
 
 // ======================
+
+function sumX(rover) {
+  rover.x += 1;
+}
+
+function sumY(rover) {
+  rover.y += 1;
+}
+
+function resY(rover) {
+  rover.y -= 1;
+}
+
+function resY(rover) {
+  rover.x -= 1;
+}
+
 function turnLeft(rover) {
   switch (rover.direction) {
     case "N":
@@ -61,28 +82,28 @@ function moveForward(rover) {
   switch (rover.direction) {
     case "N":
       if (rover.y < 10) {
-        rover.y += 1;
+        sumY(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
     case "S":
       if (rover.y > -10) {
-        rover.y -= 1;
+        resY(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
     case "E":
       if (rover.x < 10) {
-        rover.x += 1;
+        sumX(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
     case "W":
       if (rover.x > -10) {
-        rover.x -= 1;
+        resX(rover);
       } else {
         console.log('Out of the grid');
       }
@@ -90,36 +111,37 @@ function moveForward(rover) {
   }
   rover.travelog.push([rover.x, rover.y]);
 }
-function moveBackward (rover) {
+
+function moveBackward(rover) {
   switch (rover.direction) {
     case "N":
       if (rover.y > -10) {
-        rover.y -= 1;
+        resY(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
     case "S":
       if (rover.y < 10) {
-        rover.y += 1;
+        sumY(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
     case "E":
       if (rover.x > -10) {
-        rover.x -= 1;
+        resX(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
     case "W":
       if (rover.x < 10) {
-        rover.x += 1;
+        sumX(rover);
       } else {
         console.log('Out of the grid');
       }
-    break;
+      break;
   }
   rover.travelog.push([rover.x, rover.y]);
 }
@@ -139,6 +161,7 @@ function insertComand(comand, rover) {
         break;
       case "f":
         moveForward(rover);
+        break;
       case "b":
         moveBackward(rover);
         break;
