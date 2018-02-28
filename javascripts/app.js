@@ -81,28 +81,28 @@ function turnRight(rover) {
 function moveForward(rover) {
   switch (rover.direction) {
     case "N":
-      if (rover.y < 10) {
+      if (rover.y < 5) {
         sumY(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
     case "S":
-      if (rover.y > -10) {
+      if (rover.y > -5) {
         resY(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
     case "E":
-      if (rover.x < 10) {
+      if (rover.x < 5) {
         sumX(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
     case "W":
-      if (rover.x > -10) {
+      if (rover.x > -5) {
         resX(rover);
       } else {
         console.log('Out of the grid');
@@ -115,28 +115,28 @@ function moveForward(rover) {
 function moveBackward(rover) {
   switch (rover.direction) {
     case "N":
-      if (rover.y > -10) {
+      if (rover.y > -5) {
         resY(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
     case "S":
-      if (rover.y < 10) {
+      if (rover.y < 5) {
         sumY(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
     case "E":
-      if (rover.x > -10) {
+      if (rover.x > -5) {
         resX(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
     case "W":
-      if (rover.x < 10) {
+      if (rover.x < 5) {
         sumX(rover);
       } else {
         console.log('Out of the grid');
