@@ -7,23 +7,35 @@ let rover = {
   travelog: []
 };
 
-  //let comand = 'ffffffffffffffffffrfffffffffffff';
+var grind =[[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
 
-  (function start() {
-    console.log("Ejemplo comando: ffrfflflbf")
-    var comand = prompt('Introduzca un comando: ', '');
-    if (comand === null) {
-      console.log("Se ha cancelado la introducción de comandos");
+//let comand = 'ffffffffffffffffffrfffffffffffff';
+
+(function start() {
+
+  console.log("Ejemplo comando: ffrfflflbf")
+  var comand = prompt('Introduzca un comando: ', '');
+  if (comand === null) {
+    console.log("Se ha cancelado la introducción de comandos");
+  } else {
+    if (validateComand(comand)) {
+      console.log("Algún caracter del comando es erroneo");
     } else {
-      if (validateComand(comand)) {
-        console.log("Algún caracter del comando es erroneo");
-      } else {
-        insertComand(comand, rover);
-      }
+      insertComand(comand, rover);
     }
+  }
 
-    console.log(rover);
-  })();
+  console.log(rover);
+})();
 
 // ======================
 
@@ -80,28 +92,28 @@ function turnRight(rover) {
 function moveForward(rover) {
   switch (rover.direction) {
     case "N":
-      if (rover.y < 5) {
-        sumY(rover);
-      } else {
-        console.log('Out of the grid');
-      }
-      break;
-    case "S":
-      if (rover.y > -5) {
+      if (rover.y > 0) {
         resY(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
+    case "S":
+      if (rover.y < 9) {
+        sumY(rover);
+      } else {
+        console.log('Out of the grid');
+      }
+      break;
     case "E":
-      if (rover.x < 5) {
+      if (rover.x < 9) {
         sumX(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
     case "W":
-      if (rover.x > -5) {
+      if (rover.x > 0) {
         resX(rover);
       } else {
         console.log('Out of the grid');
@@ -109,33 +121,37 @@ function moveForward(rover) {
       break;
   }
   rover.travelog.push([rover.x, rover.y]);
+  if(comprobarObsataculo(rover)){
+    rover.travelog.pop();
+    console.log('Hay un obstáculo')
+  }
 }
 
 function moveBackward(rover) {
   switch (rover.direction) {
     case "N":
-      if (rover.y > -5) {
-        resY(rover);
-      } else {
-        console.log('Out of the grid');
-      }
-      break;
-    case "S":
-      if (rover.y < 5) {
+      if (rover.y < 9) {
         sumY(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
+    case "S":
+      if (rover.y > 0) {
+        resY(rover);
+      } else {
+        console.log('Out of the grid');
+      }
+      break;
     case "E":
-      if (rover.x > -5) {
+      if (rover.x > 0) {
         resX(rover);
       } else {
         console.log('Out of the grid');
       }
       break;
     case "W":
-      if (rover.x < 5) {
+      if (rover.x < 9) {
         sumX(rover);
       } else {
         console.log('Out of the grid');
@@ -170,5 +186,15 @@ function insertComand(comand, rover) {
 
 function validateComand(comand) {
   let comandSplit = comand.toLowerCase().split('');
-  return comandSplit.some(item => item !== 'r' && item !== 'l' && item !== 'f' && item !== 'b')
+  return comandSplit.some(item => item !== 'r' && item !== 'l' && item !== 'f' && item !== 'b');
+}
+
+
+function comprobarObsataculo(rover) {
+  console.log(grind[rover.x,rover.y]);
+    if(grind[rover.x,rover.y]===1){
+      return true
+    }else{
+      return false
+    }
 }
