@@ -39,7 +39,7 @@ function resY(rover) {
   rover.y -= 1;
 }
 
-function resY(rover) {
+function resX(rover) {
   rover.x -= 1;
 }
 
@@ -58,7 +58,6 @@ function turnLeft(rover) {
       rover.direction = 'S'
       break;
   }
-
 }
 
 function turnRight(rover) {
