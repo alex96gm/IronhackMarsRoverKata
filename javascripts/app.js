@@ -2,23 +2,23 @@
 // ======================
 let rover = {
   direction: 'N',
-  x: 0,
-  y: 0,
+  x: 2,
+  y: 3,
   travelog: []
 };
 
-var grind =[[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+//0 ----> Vacio / 1 ----> Obstáculo
+var grind = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 1, 0, 0, 1, 0, 1, 0],
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 1, 0, 0, 1, 0, 1, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+[1, 0, 0, 1, 0, 0, 0, 0, 1, 0],
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]];
 
-//let comand = 'ffffffffffffffffffrfffffffffffff';
 
 (function start() {
 
@@ -35,25 +35,26 @@ var grind =[[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
   }
 
   console.log(rover);
+
 })();
 
 // ======================
 
 function sumX(rover) {
   rover.x += 1;
-}
+};
 
 function sumY(rover) {
   rover.y += 1;
-}
+};
 
 function resY(rover) {
   rover.y -= 1;
-}
+};
 
 function resX(rover) {
   rover.x -= 1;
-}
+};
 
 function turnLeft(rover) {
   switch (rover.direction) {
@@ -70,7 +71,7 @@ function turnLeft(rover) {
       rover.direction = 'S'
       break;
   }
-}
+};
 
 function turnRight(rover) {
   switch (rover.direction) {
@@ -87,7 +88,7 @@ function turnRight(rover) {
       rover.direction = 'N';
       break;
   }
-}
+};
 
 function moveForward(rover) {
   switch (rover.direction) {
@@ -95,37 +96,36 @@ function moveForward(rover) {
       if (rover.y > 0) {
         resY(rover);
       } else {
-        console.log('Out of the grid');
+        console.log('Out of the grid (North)');
       }
       break;
     case "S":
       if (rover.y < 9) {
         sumY(rover);
       } else {
-        console.log('Out of the grid');
+        console.log('Out of the grid (South)');
       }
       break;
     case "E":
       if (rover.x < 9) {
         sumX(rover);
       } else {
-        console.log('Out of the grid');
+        console.log('Out of the grid (East)');
       }
       break;
     case "W":
       if (rover.x > 0) {
         resX(rover);
       } else {
-        console.log('Out of the grid');
+        console.log('Out of the grid (West)');
       }
       break;
   }
   rover.travelog.push([rover.x, rover.y]);
-  if(comprobarObsataculo(rover)){
-    rover.travelog.pop();
-    console.log('Hay un obstáculo')
-  }
-}
+
+  checkObstacles(rover) ? checkObstaclesDo(rover) : '';
+
+};
 
 function moveBackward(rover) {
   switch (rover.direction) {
@@ -133,33 +133,36 @@ function moveBackward(rover) {
       if (rover.y < 9) {
         sumY(rover);
       } else {
-        console.log('Out of the grid');
+        console.log('Out of the grid (North)');
       }
       break;
     case "S":
       if (rover.y > 0) {
         resY(rover);
       } else {
-        console.log('Out of the grid');
+        console.log('Out of the grid (South)');
       }
       break;
     case "E":
       if (rover.x > 0) {
         resX(rover);
       } else {
-        console.log('Out of the grid');
+        console.log('Out of the grid (East)');
       }
       break;
     case "W":
       if (rover.x < 9) {
         sumX(rover);
       } else {
-        console.log('Out of the grid');
+        console.log('Out of the grid (West)');
       }
       break;
   }
   rover.travelog.push([rover.x, rover.y]);
-}
+
+  checkObstacles(rover) ? checkObstaclesDo(rover) : '';
+
+};
 
 
 function insertComand(comand, rover) {
@@ -182,19 +185,20 @@ function insertComand(comand, rover) {
         break;
     }
   });
-}
+};
 
 function validateComand(comand) {
   let comandSplit = comand.toLowerCase().split('');
   return comandSplit.some(item => item !== 'r' && item !== 'l' && item !== 'f' && item !== 'b');
-}
+};
 
+function checkObstacles(rover) {
+  return grind[rover.y][rover.x] === 1 ? true : false
+};
 
-function comprobarObsataculo(rover) {
-  console.log(grind[rover.x,rover.y]);
-    if(grind[rover.x,rover.y]===1){
-      return true
-    }else{
-      return false
-    }
-}
+function checkObstaclesDo(rover) {
+  rover.travelog.pop();
+  rover.x = rover.travelog[rover.travelog.length - 1][0];
+  rover.y = rover.travelog[rover.travelog.length - 1][1];
+  console.log('Hay un obstáculo, si puede seguirá su camino');
+};
