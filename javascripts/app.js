@@ -20,24 +20,30 @@ var grind = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]];
 
 
-(function start() {
+
+function start() {
 
   console.log("Ejemplo comando: ffrfflflbf")
-  var comand = prompt('Introduzca un comando: ', '');
-  if (comand === null) {
-    console.log("Se ha cancelado la introducción de comandos");
+  var comand = document.getElementById("comand").value;
+
+  if (validateComand(comand)) {
+    console.log("Algún caracter del comando es erroneo");
+    document.getElementById("comand").value = '';
   } else {
-    if (validateComand(comand)) {
-      console.log("Algún caracter del comando es erroneo");
-    } else {
-      insertComand(comand, rover);
-    }
+    insertComand(comand, rover);
   }
 
+  actualizarDatosRobot(rover);
   console.log(rover);
 
-})();
+};
 
+function actualizarDatosRobot(rover){
+  document.getElementById("x").innerHTML=rover.x;
+  document.getElementById("y").innerHTML=rover.y;
+  document.getElementById("dir").innerHTML=rover.direction;
+  document.getElementById("log").innerHTML=rover.travelog;
+}
 // ======================
 
 function sumX(rover) {
@@ -202,3 +208,5 @@ function checkObstaclesDo(rover) {
   rover.y = rover.travelog[rover.travelog.length - 1][1];
   console.log('Hay un obstáculo, si puede seguirá su camino');
 };
+
+
