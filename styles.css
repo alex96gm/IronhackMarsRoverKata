@@ -3,16 +3,22 @@ body{
 }
 .input-data{
     display: flex;
+    height: -webkit-fill-available;
+    height: -moz-available;
+    height: fill-available;
 }
 .content-1{
     background-color: darkgrey;
     padding: 50px;
+    width: 250px;
+    max-width: 250px;
 }
 .content-2{
-    display:inline-block;
     padding: 50px;
     background-color: lightgrey;
     flex-grow:2;
+    display: flex;
+    justify-content: center ;
 }
 h5{
     margin:5px;
