@@ -56,8 +56,9 @@ function actualizarDatosRobot(rover){
   document.getElementById('x').innerHTML=rover.x;
   document.getElementById('y').innerHTML=rover.y;
   document.getElementById('dir').innerHTML=rover.direction;
+  document.getElementById('log').innerHTML='';
   rover.travelog.forEach(element => {
-    document.getElementById('log').innerHTML= `${document.getElementById('log').innerHTML} / [${element}] `
+    document.getElementById('log').innerHTML= `${document.getElementById('log').innerHTML}  [${element}] `
   });
 };
 
