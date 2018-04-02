@@ -8,7 +8,7 @@ let rover = {
 };
 
 //0 ----> Vacio / 1 ----> Obstáculo
-var grind = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+var grid = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 1, 0, 0, 1, 0, 1, 0],
 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 [0, 0, 1, 0, 0, 1, 0, 1, 0, 0],
@@ -223,7 +223,7 @@ function validateComand(comand) {
 };
 
 function checkObstacles(rover) {
-  return grind[rover.y][rover.x] === 1 ? true : false
+  return grid[rover.y][rover.x] === 1 ? true : false
 };
 
 function checkObstaclesDo(rover) {
