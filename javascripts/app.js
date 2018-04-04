@@ -9,45 +9,47 @@ let rover = {
 };
 
 const DIRECTIONS = {
-  North:'N',
-  South:'S',
-  East:'E',
-  West:'W'
+  North: 'N',
+  South: 'S',
+  East: 'E',
+  West: 'W'
 };
 
-const COMANDS={
-  Left:'l',
-  Right:'r',
-  Forward:'f',
-  Backward:'b'
+const COMANDS = {
+  Left: 'l',
+  Right: 'r',
+  Forward: 'f',
+  Backward: 'b'
 }
 
 //0 ----> Vacio / 1 ----> Obstáculo
-let grid = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 1, 0, 0, 1, 0, 1, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 1, 0, 0, 1, 0, 1, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-[1, 0, 0, 1, 0, 0, 0, 0, 1, 0],
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-[0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]];
+let grid = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0, 1, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 1, 0, 0, 1, 0, 1, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [1, 0, 0, 1, 0, 0, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+  [0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+];
 
-function resetRobot(rover){
+function resetRobot(rover) {
   rover.direction = 'N',
-  rover.x = 4,
-  rover.y = 4,
-  rover.travelog = []
+    rover.x = 4,
+    rover.y = 4,
+    rover.travelog = []
 };
 
-function resetHTML(){
-  document.getElementById('x').innerHTML='-';
-  document.getElementById('y').innerHTML='-';
-  document.getElementById('dir').innerHTML='-';
-  document.getElementById('log').innerHTML= '-';
-  document.getElementById('out-grid').innerHTML='';
-  document.getElementById('obbstacle').innerHTML='';
+function resetHTML() {
+  document.getElementById('x').innerHTML = '-';
+  document.getElementById('y').innerHTML = '-';
+  document.getElementById('dir').innerHTML = '-';
+  document.getElementById('log').innerHTML = '-';
+  document.getElementById('out-grid').innerHTML = '';
+  document.getElementById('obbstacle').innerHTML = '';
 }
 
 function start() {
@@ -67,13 +69,13 @@ function start() {
   console.log(rover);
 };
 
-function actualizarDatosRobot(rover){
-  document.getElementById('x').innerHTML=rover.x;
-  document.getElementById('y').innerHTML=rover.y;
-  document.getElementById('dir').innerHTML=rover.direction;
-  document.getElementById('log').innerHTML='';
+function actualizarDatosRobot(rover) {
+  document.getElementById('x').innerHTML = rover.x;
+  document.getElementById('y').innerHTML = rover.y;
+  document.getElementById('dir').innerHTML = rover.direction;
+  document.getElementById('log').innerHTML = '';
   rover.travelog.forEach(element => {
-    document.getElementById('log').innerHTML= `${document.getElementById('log').innerHTML}  [${element}] `
+    document.getElementById('log').innerHTML = `${document.getElementById('log').innerHTML}  [${element}] `
   });
 };
 
@@ -133,7 +135,6 @@ function moveForward(rover) {
       if (rover.y > 0) {
         resY(rover);
       } else {
-        console.log('Out of the grid (North)');
         outOfGrid('North');
       }
       break;
@@ -141,7 +142,6 @@ function moveForward(rover) {
       if (rover.y < 9) {
         sumY(rover);
       } else {
-        console.log('Out of the grid (South)');
         outOfGrid('South');
       }
       break;
@@ -149,7 +149,6 @@ function moveForward(rover) {
       if (rover.x < 9) {
         sumX(rover);
       } else {
-        console.log('Out of the grid (East)');
         outOfGrid('East');
       }
       break;
@@ -157,7 +156,6 @@ function moveForward(rover) {
       if (rover.x > 0) {
         resX(rover);
       } else {
-        console.log('Out of the grid (West)');
         outOfGrid('West');
       }
       break;
@@ -174,7 +172,6 @@ function moveBackward(rover) {
       if (rover.y < 9) {
         sumY(rover);
       } else {
-        console.log('Out of the grid (South)');
         outOfGrid('South');
       }
       break;
@@ -182,7 +179,6 @@ function moveBackward(rover) {
       if (rover.y > 0) {
         resY(rover);
       } else {
-        console.log('Out of the grid (North)');
         outOfGrid('North');
       }
       break;
@@ -190,7 +186,6 @@ function moveBackward(rover) {
       if (rover.x > 0) {
         resX(rover);
       } else {
-        console.log('Out of the grid (West)');
         outOfGrid('West');
       }
       break;
@@ -198,7 +193,6 @@ function moveBackward(rover) {
       if (rover.x < 9) {
         sumX(rover);
       } else {
-        console.log('Out of the grid (East)');
         outOfGrid('East');
       }
       break;
@@ -243,16 +237,17 @@ function checkObstacles(rover) {
 
 function checkObstaclesDo(rover) {
   rover.travelog.pop();
-  if(rover.travelog.length){
+  if (rover.travelog.length) {
     rover.x = rover.travelog[rover.travelog.length - 1][0];
     rover.y = rover.travelog[rover.travelog.length - 1][1];
   }
   console.log('Hay un obstáculo, si puede seguirá su camino');
-  document.getElementById('obbstacle').innerHTML=`Hay un obstáculo, si puede seguirá su camino`
+  document.getElementById('obbstacle').innerHTML = `Hay un obstáculo, si puede seguirá su camino`
 };
 
-function outOfGrid(direction){
-  document.getElementById('out-grid').innerHTML=`Out of the grid (${direction})`
+function outOfGrid(direction) {
+  console.log(`Out of the grid (${direction})`);
+  document.getElementById('out-grid').innerHTML = `Out of the grid (${direction})`
 };
 
 
