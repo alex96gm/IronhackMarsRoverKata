@@ -1,3 +1,4 @@
+
 // Rover Object Goes Here
 // ======================
 let rover = {
@@ -7,8 +8,22 @@ let rover = {
   travelog: []
 };
 
+const DIRECTIONS = {
+  North:'N',
+  South:'S',
+  East:'E',
+  West:'W'
+};
+
+const COMANDS={
+  Left:'l',
+  Right:'r',
+  Forward:'f',
+  Backward:'b'
+}
+
 //0 ----> Vacio / 1 ----> Obstáculo
-var grid = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+let grid = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 [0, 0, 0, 1, 0, 0, 1, 0, 1, 0],
 [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 [0, 0, 1, 0, 0, 1, 0, 1, 0, 0],
@@ -80,41 +95,41 @@ function resX(rover) {
 
 function turnLeft(rover) {
   switch (rover.direction) {
-    case 'N':
-      rover.direction = 'W'
+    case DIRECTIONS.North:
+      rover.direction = DIRECTIONS.West
       break;
-    case 'S':
-      rover.direction = 'E'
+    case DIRECTIONS.South:
+      rover.direction = DIRECTIONS.East
       break;
-    case 'E':
-      rover.direction = 'N'
+    case DIRECTIONS.East:
+      rover.direction = DIRECTIONS.North
       break;
-    case 'W':
-      rover.direction = 'S'
+    case DIRECTIONS.West:
+      rover.direction = DIRECTIONS.South
       break;
   }
 };
 
 function turnRight(rover) {
   switch (rover.direction) {
-    case 'N':
-      rover.direction = 'E';
+    case DIRECTIONS.North:
+      rover.direction = DIRECTIONS.East;
       break;
-    case 'S':
-      rover.direction = 'W';
+    case DIRECTIONS.South:
+      rover.direction = DIRECTIONS.West;
       break;
-    case 'E':
-      rover.direction = 'S';
+    case DIRECTIONS.East:
+      rover.direction = DIRECTIONS.South;
       break;
-    case 'W':
-      rover.direction = 'N';
+    case DIRECTIONS.West:
+      rover.direction = DIRECTIONS.North;
       break;
   }
 };
 
 function moveForward(rover) {
   switch (rover.direction) {
-    case 'N':
+    case DIRECTIONS.North:
       if (rover.y > 0) {
         resY(rover);
       } else {
@@ -122,7 +137,7 @@ function moveForward(rover) {
         outOfGrid('North');
       }
       break;
-    case 'S':
+    case DIRECTIONS.South:
       if (rover.y < 9) {
         sumY(rover);
       } else {
@@ -130,7 +145,7 @@ function moveForward(rover) {
         outOfGrid('South');
       }
       break;
-    case 'E':
+    case DIRECTIONS.East:
       if (rover.x < 9) {
         sumX(rover);
       } else {
@@ -138,7 +153,7 @@ function moveForward(rover) {
         outOfGrid('East');
       }
       break;
-    case 'W':
+    case DIRECTIONS.West:
       if (rover.x > 0) {
         resX(rover);
       } else {
@@ -155,7 +170,7 @@ function moveForward(rover) {
 
 function moveBackward(rover) {
   switch (rover.direction) {
-    case 'N':
+    case DIRECTIONS.North:
       if (rover.y < 9) {
         sumY(rover);
       } else {
@@ -163,7 +178,7 @@ function moveBackward(rover) {
         outOfGrid('South');
       }
       break;
-    case 'S':
+    case DIRECTIONS.South:
       if (rover.y > 0) {
         resY(rover);
       } else {
@@ -171,7 +186,7 @@ function moveBackward(rover) {
         outOfGrid('North');
       }
       break;
-    case 'E':
+    case DIRECTIONS.East:
       if (rover.x > 0) {
         resX(rover);
       } else {
@@ -179,7 +194,7 @@ function moveBackward(rover) {
         outOfGrid('West');
       }
       break;
-    case 'W':
+    case DIRECTIONS.West:
       if (rover.x < 9) {
         sumX(rover);
       } else {
@@ -201,16 +216,16 @@ function insertComand(comand, rover) {
   let comandSplit = comand.toLowerCase().split('');
   comandSplit.forEach(element => {
     switch (element) {
-      case 'r':
+      case COMANDS.Right:
         turnRight(rover);
         break;
-      case 'l':
+      case COMANDS.Left:
         turnLeft(rover);
         break;
-      case 'f':
+      case COMANDS.Forward:
         moveForward(rover);
         break;
-      case 'b':
+      case COMANDS.Backward:
         moveBackward(rover);
         break;
     }
